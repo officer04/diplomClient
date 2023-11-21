@@ -13,7 +13,7 @@ import PriceCours from '../../components/PriceCours/PriceCours';
 const Frontend = () => {
   return (
     <div>
-      <BaseInformation title={dataInfoBaseFront[0].title } description={dataInfoBaseFront[0].description} />
+      <BaseInformation title={dataInfoBaseFront[0].title } description={dataInfoBaseFront[0].description} titleColor={styles.titleColor} btnColor={styles.bg} />
 
       <div className={styles.infoFront}>
         <h1 className={styles.title}>

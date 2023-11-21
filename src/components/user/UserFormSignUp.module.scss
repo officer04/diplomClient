@@ -2,10 +2,10 @@
 
 .signUp {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   color: #fff;
-  padding: 50px 0;
+  height: 65vh;
 
   .wrapper {
     width: 368px;

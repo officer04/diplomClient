@@ -10,8 +10,8 @@ const PriceCours = ( {btnColor}) => {
       </p>
       <div className={styles.wrapper}>
         <PriceCard btnColor={btnColor}/>
-        <PriceCard/>
-        <PriceCard/>
+        <PriceCard btnColor={btnColor}/>
+        <PriceCard btnColor={btnColor}/>
       </div>
     </div>
   );

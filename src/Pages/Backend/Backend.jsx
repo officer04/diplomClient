@@ -19,7 +19,6 @@ const Backend = () => {
   return (
     <section>
       <BaseInformation title={dataInfoBaseBack[0].title} description={dataInfoBaseBack[0].description}  titleColor={styles.titleColor} btnColor={styles.bg}/>
-      {/* <BaseInformation title={"приветик"} description={dataInfoBaseBack[0]}  /> */}
 
       
       <div className={styles.learn}>
