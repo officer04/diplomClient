@@ -1,0 +1,47 @@
+@import './../../styles/variables.scss';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $white;
+  padding: 60px 0px;
+
+  .logo {
+    cursor: pointer;
+  }
+
+  .nav {
+    text-align: center;
+
+    h3 {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 30px;
+    }
+
+    a {
+      font-size: 20px;
+      color: $white;
+      cursor: pointer;
+    }
+  }
+
+
+  .messenger {
+    text-align: center;
+
+    h3 {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 30px;
+    }
+
+    ul {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      column-gap: 30px;
+    }
+  }
+}

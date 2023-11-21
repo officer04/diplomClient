@@ -1,0 +1,49 @@
+@import './../../styles/variables.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0;
+
+  .logo {
+    cursor: pointer;
+  }
+
+  .nav {
+    ul {
+      display: flex;
+      gap: 20px;
+
+      .link {
+        color: $white;
+        cursor: pointer;
+        transition: 0.8s ease-in;
+      }
+
+      .link:hover {
+        color: rgb(182, 33, 33);
+      }
+
+      .link.active {
+        color: rgb(182, 33, 33);
+      }
+    }
+  }
+
+  .login {
+    ul {
+      display: flex;
+      gap: 20px;
+    }
+    .link {
+      color: $white;
+      cursor: pointer;
+      transition: 0.8s ease-in;
+    }
+
+    .link:hover {
+      color: rgb(182, 33, 33);
+    }
+  }
+}

@@ -1,0 +1,33 @@
+
+@import './../../styles/variables.scss';
+
+
+.account {
+  display: flex;
+  justify-content: space-between;
+  color: $white;
+  padding: 150px 0px;
+
+  .text {
+    width: 600px;
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 50px;
+    }
+
+    p {
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 60px;
+    }
+
+    button {
+      padding: 15px 60px;
+      border-radius: 10px;
+      background: $blue;
+      color: $white;
+      cursor: pointer;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+@import './../../styles/variables.scss';
+
+.connection {
+  padding: 60px 0;
+  display: flex;
+  justify-content: space-between;
+  color: $white;
+
+  .text {
+    width: 540px;
+    font-size: 48px;
+    font-weight: 700;
+  }
+
+  .card {
+    width: 320px;
+    padding: 55px 30px;
+    background-color: $red;
+    border-radius: 10px;
+
+    .input {
+      margin-bottom: 20px;
+      
+      input {
+        width: 100%;
+        padding: 10px 15px 15px 5px;
+        color: $white;
+        border-radius: 10px;
+      }
+    }
+
+    .btn {
+      width: 100%;
+      padding: 15px 20px;
+      color: $white;
+      background-color: $bg;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  }
+}
