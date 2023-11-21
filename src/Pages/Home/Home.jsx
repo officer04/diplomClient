@@ -2,6 +2,8 @@ import working from './../../images/working.svg';
 import moneyBag from './../../images/money-bag.svg';
 import bookshelfLibrary from './../../images/bookshelf-library.svg';
 
+import { Link } from 'react-router-dom';
+
 import styles from './Home.module.scss';
 
 const Home = () => {
@@ -9,7 +11,7 @@ const Home = () => {
     <section>
       <div className={styles.InfoBanner}>
         <h1 className={styles.title}>Сделаем так, чтобы hr-менеджеры стояли за вами в очереди</h1>
-        <button className={styles.btn}>Начать учиться</button>
+        <Link to='/cours' className={styles.btn}>Начать учиться</Link>
       </div>
 
       <div className={styles.direction}>
@@ -60,7 +62,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div className={styles.connection}>
+      {/* <div className={styles.connection}>
         <div className={styles.text}>
           <h1>Запросить полную и подробную программу курса</h1>
         </div>
@@ -73,7 +75,7 @@ const Home = () => {
           </div>
           <button className={styles.btn}>Отправить</button>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

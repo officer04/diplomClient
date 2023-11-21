@@ -1,16 +1,22 @@
 import styles from './Fronted.module.scss';
 
+import { useEffect } from 'react';
+
 import Salary from '../../components/Salary/Salary';
 import BaseInformation from '../../components/BaseInformation/BaseInformation';
 import ProgramsList from '../../components/ProgramsList/ProgramsList';
 import SpecialistBonus from '../../components/SpecialistBonus/SpecialistBonus';
 import CardFront from '../../components/CardFront/CardFront';
+import PriceCours from '../../components/PriceCours/PriceCours';
 
 import { dataInfoCoursFront, dataInfoProgramCoursFront, dataInfoBaseFront } from '../../utils/commom';
 import { dataInfoLearnFront } from '../../utils/commom';
-import PriceCours from '../../components/PriceCours/PriceCours';
 
 const Frontend = () => {
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  })
   return (
     <div>
       <BaseInformation title={dataInfoBaseFront[0].title } description={dataInfoBaseFront[0].description} titleColor={styles.titleColor} btnColor={styles.bg} />

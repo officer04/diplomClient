@@ -12,7 +12,8 @@ export const createUser = createAsyncThunk('users/createUser', async (payload, t
     //   },
     // });
     const response = await axios.post('http://localhost:5000/auth/registration', payload);
-    return response.data;
+    console.log(response)
+    return response;
   } catch (error) {
     console.log(error);
     return thunkAPI.rejectWithValue(error);
@@ -22,7 +23,8 @@ export const createUser = createAsyncThunk('users/createUser', async (payload, t
 export const loginUser = createAsyncThunk('users/loginUser', async (payload, thunkAPI) => {
   try {
     const response = await axios.post('http://localhost:5000/auth/login', payload);
-    return response.data;
+    console.log(response)
+    return response;
   } catch (error) {
     console.log(error);
     return thunkAPI.rejectWithValue(error);

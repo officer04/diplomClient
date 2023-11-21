@@ -5,6 +5,8 @@ import ProgramsList from '../../components/ProgramsList/ProgramsList';
 import Salary from '../../components/Salary/Salary';
 import SpecialistBonus from '../../components/SpecialistBonus/SpecialistBonus';
 
+import { useEffect } from 'react';
+
 import { dataInfoCoursBack, dataInfoLearnBack, dataInfoProgramCoursBack, dataInfoBaseBack } from '../../utils/commom';
 
 import styles from './Backend.module.scss';
@@ -16,10 +18,14 @@ const skillsItems = [
   '✓ Работайте из любой точки мира',
 ];
 const Backend = () => {
+
+  useEffect(() => {
+    // scrollIntoView({ behavior: 'smooth' });
+    window.scroll(0, 0);
+  })
   return (
     <section>
       <BaseInformation title={dataInfoBaseBack[0].title} description={dataInfoBaseBack[0].description}  titleColor={styles.titleColor} btnColor={styles.bg}/>
-
       
       <div className={styles.learn}>
         <h1 className={styles.title}>

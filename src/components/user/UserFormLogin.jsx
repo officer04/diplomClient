@@ -1,65 +1,83 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styles from './UserFormLogin.module.scss';
+
 import { loginUser } from '../../featers/auth/auth';
 import addIsloading from '../../featers/auth/auth';
 
+import styles from './UserFormLogin.module.scss';
+
 const UserFormLogin = () => {
   const dispatch = useDispatch();
-  const [state, setState] = useState({ name: '', pasword: '' });
-  const {isLoading} = useSelector(({auth}) => auth)
+  const navigate = useNavigate();
+  const [err, setErr] = useState('');
+  const [state, setState] = useState({ username: '', password: '' });
+  const { isLoading } = useSelector(({ auth }) => auth);
 
   const handleChange = ({ target: { value, name } }) => {
     setState({ ...state, [name]: value });
-    console.log(state)
   };
+  // console.log(state);
 
-  const handleClick = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     // const cat = dispatch(loginUser(state))
     // cat.then((x) => console.log(x.payload))
-    dispatch(loginUser(state))
+    dispatch(loginUser(state)).then((response) => {
+      console.log(response);
+      if (response.payload.response.status === 400) {
+        setErr(response.payload.response.data.message)
+      }
+
+      if (response.payload.status === 200) {
+        navigate('/account');
+      }
+    });
+
     // dispatch(addIsloading(true));
   };
   return (
     <section className={styles.signUp}>
       <div className={styles.wrapper}>
-        <div className={styles.title}>
+        <div className={styles.head}>
           <h1>Добро пожаловать!</h1>
           <p>Войдите, чтобы получить доступ к панели инструментов, настройкам и проектам.</p>
         </div>
-        <div className={styles.body}>
+        <p className={styles.err}>{err}</p>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.group}>
-            <p>Электронная почта</p>
-            <input
-              type="text"
-              name="username"
-              placeholder="Введите вашу почту"
-              value={state.username}
-              onChange={handleChange}
-            />
+            <label>
+              <p>Электронная почта</p>
+              <input
+                type="text"
+                name="username"
+                placeholder="Введите вашу почту"
+                value={state.username}
+                onChange={handleChange}
+              />
+            </label>
           </div>
           <div className={styles.group}>
-            <p>Пароль</p>
-            <input
-              type="text"
-              name="password"
-              placeholder="Введите ваш пароль"
-              value={state.password}
-              onChange={handleChange}
-            />
+            <label>
+              <p>Пароль</p>
+              <input
+                type="text"
+                name="password"
+                placeholder="Введите ваш пароль"
+                value={state.password}
+                onChange={handleChange}
+              />
+            </label>
           </div>
 
-          <button className={styles.button} onClick={handleClick}>
-            Войти
-          </button>
-          <p className={styles.text}>
-            У вас есть аккаунт?{' '}
-            <Link to="/signup">
-              <span>Зарегистрироваться</span>
-            </Link>
-          </p>
-        </div>
+          <button className={styles.button}>Войти</button>
+        </form>
+        <p className={styles.text}>
+          У вас есть аккаунт?{' '}
+          <Link to="/signup">
+            <span>Зарегистрироваться</span>
+          </Link>
+        </p>
       </div>
     </section>
   );

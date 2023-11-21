@@ -4,8 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
+  color: $white;
   height: 65vh;
+  // height: 100%;
 
   .wrapper {
     width: 368px;
@@ -25,48 +26,54 @@
       }
     }
 
-    .body {
-
-      margin-bottom: 25px;
+    .err {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: $red;
       
+    }
+
+    .form {
+      margin-bottom: 15px;
+
       .group {
         margin-bottom: 15px;
-  
+
         p {
+          margin-bottom: 5px;
           font-size: 14px;
           font-weight: 500;
-          margin-bottom: 5px;
         }
-  
+
         input {
+          width: 100%;
           padding: 15px 25px;
           border-radius: 5px;
-          width: 100%;
         }
       }
-  
+
       .button {
-        background-color: #2D15C1;
-        color: #fff;
+        font-family: 'Inter';
+        font-size: 16px;
+        margin-bottom: 15x;
         padding: 15px 10px;
         width: 100%;
         border-radius: 10px;
-        margin-bottom: 15x;
+        color: $white;
+        background-color: $blue;
         cursor: pointer;
-      }
-  
-      .text {
-        text-align: center;
-        margin-top: 15px;
-
-        span {
-          color: #2D15C1;
-          cursor: pointer;
-        }
       }
       
     }
-  
 
+    .text {
+      text-align: center;
+      margin-top: 15px;
+
+      span {
+        color: $blue;
+        cursor: pointer;
+      }
+    }
   }
 }

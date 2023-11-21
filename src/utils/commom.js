@@ -244,7 +244,7 @@ export const dataInfoProgramCoursBack = [
 export const dataInfoBaseFront = [
   {
     id: 1,
-    title: 'Frontend- разработчикс нуля до Джуна',
+    title: 'Frontend- разработчик с нуля до Джуна',
     description: [
       "Научитесь создавать сайты и приложения, проектировать интерфейсы и работать с Flexbox и JavaScript",
       "Соберите портфолио из 5 проектов",

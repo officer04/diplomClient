@@ -19,6 +19,7 @@
       .link {
         color: $white;
         cursor: pointer;
+        font-family: "Inter";
         transition: 0.15s ease-in;
       }
 
@@ -33,6 +34,7 @@
   }
 
   .login {
+    
     ul {
       display: flex;
       gap: 20px;
@@ -41,7 +43,8 @@
     .link {
       color: $white;
       cursor: pointer;
-      transition: 0.8s ease-in;
+      font-family: "Inter";
+      transition: 0.15s ease-in;
     }
 
 

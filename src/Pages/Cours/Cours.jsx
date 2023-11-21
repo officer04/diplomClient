@@ -1,25 +1,42 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import styles from './Cours.module.scss';
 
+import ElipsRed from './../../images/EllipseRed.svg'
+import ElipsBlue from './../../images/EllipseBlue.svg'
+
 const Cours = () => {
+  useEffect(() => {
+    window.scroll(0, 0);
+  })
+  
+  const scroll = (xp) => {
+    window.scrollTo({
+      top: xp,
+      behavior: "smooth"
+    })
+  }
+  
   return (
-    <div>
-      <section className={styles.banner}>
+    <section>
+      <div className={styles.banner}>
         <div className={styles.wrapper}>
           <h1>Стать джуниором в 2024 году </h1>
           <p>
             Мы сделаем из вас junior-разработчика с доходом от 70.000 ₽ и гарантией для
             трудоустройства
           </p>
-          <Link to="/frontend">
+          <Link to="" onClick={() => scroll(600)}>
             <button>Узнать больше</button>
           </Link>
         </div>
-      </section>
-      <section className={styles.cours}>
+      </div>
+      <div id='' className={styles.cours}>
         <h1 className={styles.title}>Какие направления можно выбрать</h1>
         <div className={styles.wrapper}>
-          <Link to='/frontend'>
+          <Link to="/frontend" className={styles.link}>
+            <img src={ElipsBlue} className={styles.img} alt="" />
             <div className={styles.card}>
               <h3>
                 Junior <br /> frontend разработчик
@@ -31,7 +48,8 @@ const Cours = () => {
               <p>С нуля 12 месяцев</p>
             </div>
           </Link>
-          <Link to='/backend'>
+          <Link to="/backend" className={styles.link}>
+            <img src={ElipsRed} alt="" />
             <div className={styles.card}>
               <h3>
                 Junior <br /> bakend разработчик
@@ -52,8 +70,8 @@ const Cours = () => {
           <p>Пройти его и узнай в какую сферу у тебя больше направленность</p>
           <button>Тык сюда</button>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 

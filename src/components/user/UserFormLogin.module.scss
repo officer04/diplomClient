@@ -10,7 +10,7 @@
   .wrapper {
     width: 368px;
 
-    .title {
+    .head {
       margin-bottom: 15px;
 
       h1 {
@@ -24,27 +24,33 @@
         font-weight: 500;
       }
     }
-
-    .body {
-
-      margin-bottom: 25px;
+    
+    .err {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: $red;
       
+    }
+
+    .form {
+      margin-bottom: 15px;
+
       .group {
         margin-bottom: 15px;
-  
+
         p {
           font-size: 14px;
           font-weight: 500;
           margin-bottom: 5px;
         }
-  
+
         input {
           padding: 15px 25px;
           border-radius: 5px;
           width: 100%;
         }
       }
-  
+
       .button {
         background-color: $blue;
         color: $white;
@@ -53,20 +59,18 @@
         border-radius: 10px;
         margin-bottom: 15x;
         cursor: pointer;
+        font-family: 'Inter';
+        font-size: 16px;
       }
-  
-      .text {
-        text-align: center;
-        margin-top: 15px;
-
-        span {
-          color: $blue;
-          cursor: pointer;
-        }
-      }
-      
     }
-  
 
+    .text {
+      text-align: center;
+
+      span {
+        color: $blue;
+        cursor: pointer;
+      }
+    }
   }
 }

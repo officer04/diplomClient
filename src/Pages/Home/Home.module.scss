@@ -8,18 +8,19 @@
 
   .title {
     margin-bottom: 40px;
-    font-size: 32px;
+    font-size: 42px;
     font-weight: 600;
   }
 
   .btn {
+    font-family: "Inter";
     padding: 15px 40px;
     font-size: 20px;
     color: $white;
     background-color: $red;
     border-radius: 10px;
-    cursor: pointer;
     transition: 0.5s;
+    cursor: pointer;
   }
 
   .btn:hover {
@@ -77,7 +78,7 @@
   
   .title {
     margin-bottom: 70px;
-    font-size: 32px;
+    font-size: 42px;
     font-weight: 600;
   }
 

@@ -14,8 +14,8 @@ const HeaderCourse = () => {
 
       <div className={styles.login}>
         <ul>
-          <Link to="/signup">Регистрация</Link>
-          <Link to="/login">Войти</Link>
+          <Link to="/signup" className={styles.link}>Регистрация</Link>
+          <Link to="/login" className={styles.link}>Войти</Link>
         </ul>
       </div>
     </header>

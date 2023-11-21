@@ -3,6 +3,8 @@ import styles from './Salary.module.scss';
 const Salary = ({styleBg}) => {
   return (
     <div className={styles.salary}>
+      <h1 className={styles.title}>Зарплата <span>frontend-разработчика</span></h1>
+      <p className={styles.text}>по данным hh.ru в среднем составляет</p>
       <div className={styles.wrapper}>
         <div className={styles.left}>
           <div className={`${styles.head} ${styleBg}`}>
@@ -28,7 +30,7 @@ const Salary = ({styleBg}) => {
               <span>Сеньёр</span>
             </div>
           </div>
-          <p className={styles.text}>
+          <p className={styles.description}>
             Хорошие фронтенд-разработчики быстро растут в профессии и в цене
           </p>
         </div>
