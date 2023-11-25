@@ -5,8 +5,8 @@
   justify-content: center;
   align-items: center;
   color: $white;
-  height: 65vh;
-  // height: 100%;
+  // height: 65vh;
+  height: 100%;
 
   .wrapper {
     width: 368px;
@@ -39,14 +39,22 @@
       .group {
         margin-bottom: 15px;
 
-        p {
+        h3 {
           margin-bottom: 5px;
           font-size: 14px;
           font-weight: 500;
         }
 
+        p {
+          margin-bottom: 5px;
+          font-size: 14px;
+          font-weight: 500;
+          color: $red;
+        }
+
         input {
           width: 100%;
+          margin-bottom: 5px;
           padding: 15px 25px;
           border-radius: 5px;
         }
@@ -62,6 +70,17 @@
         color: $white;
         background-color: $blue;
         cursor: pointer;
+      }
+
+      .buttonDisabled {
+        font-family: 'Inter';
+        font-size: 16px;
+        margin-bottom: 15x;
+        padding: 15px 10px;
+        width: 100%;
+        border-radius: 10px;
+        color: $white;
+        background-color: #0d0351;
       }
       
     }

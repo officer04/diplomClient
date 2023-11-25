@@ -38,16 +38,24 @@
       .group {
         margin-bottom: 15px;
 
-        p {
+        h3 {
+          margin-bottom: 5px;
           font-size: 14px;
           font-weight: 500;
+        }
+
+        p {
           margin-bottom: 5px;
+          font-size: 14px;
+          font-weight: 500;
+          color: $red;
         }
 
         input {
           padding: 15px 25px;
           border-radius: 5px;
           width: 100%;
+          margin-bottom: 5px;
         }
       }
 
@@ -61,6 +69,17 @@
         cursor: pointer;
         font-family: 'Inter';
         font-size: 16px;
+      }
+
+      .buttonDisabled {
+        font-family: 'Inter';
+        font-size: 16px;
+        margin-bottom: 15x;
+        padding: 15px 10px;
+        width: 100%;
+        border-radius: 10px;
+        color: $white;
+        background-color: #0d0351;
       }
     }
 

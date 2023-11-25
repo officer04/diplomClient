@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
 
 import { loginUser } from '../../featers/auth/auth';
 import addIsloading from '../../featers/auth/auth';
@@ -13,28 +14,26 @@ const UserFormLogin = () => {
   const [err, setErr] = useState('');
   const [state, setState] = useState({ username: '', password: '' });
   const { isLoading } = useSelector(({ auth }) => auth);
+  const {
+    register,
+    reset,
+    formState: { errors, isValid },
+    handleSubmit,
+  } = useForm({
+    mode: 'onBlur',
+  });
 
-  const handleChange = ({ target: { value, name } }) => {
-    setState({ ...state, [name]: value });
-  };
-  // console.log(state);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // const cat = dispatch(loginUser(state))
-    // cat.then((x) => console.log(x.payload))
-    dispatch(loginUser(state)).then((response) => {
-      console.log(response);
-      if (response.payload.response.status === 400) {
+  const onSubmit = (data) => {
+    dispatch(loginUser(data)).then((response) => {
+      if (response.payload.response?.status === 400) {
         setErr(response.payload.response.data.message)
       }
 
-      if (response.payload.status === 200) {
+      if (response.payload?.status === 200) {
         navigate('/account');
       }
     });
 
-    // dispatch(addIsloading(true));
   };
   return (
     <section className={styles.signUp}>
@@ -44,33 +43,46 @@ const UserFormLogin = () => {
           <p>Войдите, чтобы получить доступ к панели инструментов, настройкам и проектам.</p>
         </div>
         <p className={styles.err}>{err}</p>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.group}>
             <label>
-              <p>Электронная почта</p>
+              <h3>Электронная почта</h3>
               <input
-                type="text"
-                name="username"
-                placeholder="Введите вашу почту"
-                value={state.username}
-                onChange={handleChange}
+                {...register('email', {
+                  required: 'Поля обязательное к заполнению',
+                  pattern: {
+                    value:
+                      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/iu,
+                    message: 'Почта указана не верно',
+                  },
+                })}
               />
+              {errors?.email && <p>{errors.email.message}</p>}
             </label>
           </div>
           <div className={styles.group}>
             <label>
-              <p>Пароль</p>
+              <h3>Пароль</h3>
               <input
-                type="text"
-                name="password"
-                placeholder="Введите ваш пароль"
-                value={state.password}
-                onChange={handleChange}
+                {...register('password', {
+                  required: 'Поля обязательное к заполнению',
+                  pattern: {
+                    value: /^(?=.*\d)\w{3,20}$/m,
+                    message:
+                      'Пароль должен состоять из ластинских букв и цифр длина от 3 до 20 символов',
+                  },
+                })}
               />
             </label>
+            {errors?.password && <p>{errors.password.message}</p>}
           </div>
 
-          <button className={styles.button}>Войти</button>
+          <button
+            className={`${isValid ? styles.button : styles.buttonDisabled}`}
+            disabled={!isValid}
+          >
+            Войти
+          </button>
         </form>
         <p className={styles.text}>
           У вас есть аккаунт?{' '}

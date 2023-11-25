@@ -29,6 +29,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px 0;
+
       .head {
         display: flex;
         justify-content: center;
@@ -37,7 +38,6 @@
         height: 140px;
         padding: 10px;
         border-radius: 10px;
-        // background: $blue;
 
         p {
           font-size: 24px;
@@ -54,7 +54,6 @@
         justify-content: center;
         align-items: center;
         border-radius: 10px;
-        // background: $blue;
         
         h3 {
           font-size: 24px;
@@ -73,10 +72,10 @@
     .right {
       width: 540px;
       padding: 20px;
-      // background: $blue;
       border-radius: 10px;
 
       .card {
+        
         .group {
           display: flex;
           align-items: center;

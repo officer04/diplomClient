@@ -1,29 +1,31 @@
-@import './../../styles/variables.scss';
+@import './../../../styles/variables.scss';
 
-
-.listCours {
-  padding: 60px 0;
+.ListMyCours {
+  height: 65vh;
   color: $white;
-  height: 100vh;
 
   .title {
     font-size: 32px;
     font-weight: 600;
-    margin-bottom: 65px;
+    margin-top: 30px;
+    margin-bottom: 40px;
   }
 
   .wrapper {
     display: flex;
-    gap: 0 20px;
+    flex-wrap: wrap;
+    gap: 20px 20px;
 
     .card {
+      width: 400px;
+      padding: 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-radius: 10px;
+      color: $white;
       border: 1px solid $white;
-      width: 400px;
-      padding: 20px;
+      cursor: pointer;
 
       span {
         display: block;
@@ -33,10 +35,10 @@
       }
 
       h2 {
+        margin-bottom: 20px;
+        width: 190px;
         font-size: 20px;
         font-weight: 400;
-        width: 190px;
-        margin-bottom: 20px;
       }
 
       p {

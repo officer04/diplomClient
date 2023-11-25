@@ -68,7 +68,7 @@ const Cours = () => {
         <div className={styles.diagnostics}>
           <h3>Диагностика</h3>
           <p>Пройти его и узнай в какую сферу у тебя больше направленность</p>
-          <button>Тык сюда</button>
+          <Link to="/single-question" >Тык сюда</Link>
         </div>
       </div>
     </section>
