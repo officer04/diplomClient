@@ -58,6 +58,14 @@
           padding: 15px 25px;
           border-radius: 5px;
         }
+
+        .exclamation {
+          display: flex;
+
+          p {
+            margin-bottom: 0;
+          }
+        }
       }
 
       .button {

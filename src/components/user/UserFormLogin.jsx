@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
+import exclamation from './../../images/exclamation.svg'
+
 import { loginUser } from '../../featers/auth/auth';
 import addIsloading from '../../featers/auth/auth';
 
@@ -57,13 +59,14 @@ const UserFormLogin = () => {
                   },
                 })}
               />
-              {errors?.email && <p>{errors.email.message}</p>}
+              {errors?.email && <div className={styles.exclamation}><img src={exclamation}/><p>{errors.email.message}</p></div>}
             </label>
           </div>
           <div className={styles.group}>
             <label>
               <h3>Пароль</h3>
               <input
+               type="password"
                 {...register('password', {
                   required: 'Поля обязательное к заполнению',
                   pattern: {
@@ -74,7 +77,7 @@ const UserFormLogin = () => {
                 })}
               />
             </label>
-            {errors?.password && <p>{errors.password.message}</p>}
+            {errors?.password && <div className={styles.exclamation}><img src={exclamation}/><p>{errors.password.message}</p></div>}
           </div>
 
           <button

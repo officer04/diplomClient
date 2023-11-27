@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { addUser, createUser } from './../../featers/auth/auth';
 import { useSelector, useDispatch } from 'react-redux';
 
+import exclamation from './../../images/exclamation.svg';
+
 const UserFormSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,9 +21,6 @@ const UserFormSignUp = () => {
   const [err, setErr] = useState('');
 
   const onSubmit = (data) => {
-    // console.log(data);
-    // console.log(formState);
-
     dispatch(createUser(data))
       .then((response) => {
         if (response.payload.response?.status === 400) {
@@ -62,7 +61,12 @@ const UserFormSignUp = () => {
                 })}
               />
             </label>
-            {errors?.username && <p>{errors.username.message}</p>}
+            {errors?.username && (
+              <div className={styles.exclamation}>
+                <img src={exclamation} />
+                <p>{errors.username.message}</p>
+              </div>
+            )}
           </div>
           <div className={styles.group}>
             <label>
@@ -78,12 +82,18 @@ const UserFormSignUp = () => {
                 })}
               />
             </label>
-            {errors?.email && <p>{errors.email.message}</p>}
+            {errors?.email && (
+              <div className={styles.exclamation}>
+                <img src={exclamation} />
+                <p>{errors.email.message}</p>
+              </div>
+            )}
           </div>
           <div className={styles.group}>
             <label>
               <h3>Пароль</h3>
               <input
+                type="password"
                 {...register('password', {
                   required: 'Поля обязательное к заполнению',
                   pattern: {
@@ -94,20 +104,32 @@ const UserFormSignUp = () => {
                 })}
               />
             </label>
-            {errors?.password && <p>{errors.password.message}</p>}
+            {errors?.password && (
+              <div className={styles.exclamation}>
+                <img src={exclamation} />
+                <p>{errors.password.message}</p>
+              </div>
+            )}
           </div>
-          {/* <div className={styles.group}>
+          <div className={styles.group}>
             <label>
               <h3>Повторите пароль</h3>
               <input
+                type="password"
                 {...register('repeatPassword', {
                   required: 'Поля обязательное к заполнению',
-                  validate: (value, formValues) => value === formValues.password || "Пароли не совпадают",
+                  validate: (value, formValues) =>
+                    value === formValues.password || 'Пароли не совпадают',
                 })}
               />
             </label>
-          {errors?.repeatPassword && <p>{errors.repeatPassword.message}</p>}
-          </div> */}
+            {errors?.repeatPassword && (
+              <div className={styles.exclamation}>
+                <img src={exclamation} />
+                <p>{errors.repeatPassword.message}</p>
+              </div>
+            )}
+          </div>
 
           <button
             className={`${isValid ? styles.button : styles.buttonDisabled}`}
