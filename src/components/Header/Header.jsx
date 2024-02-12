@@ -1,20 +1,19 @@
 import { useLocation } from 'react-router-dom';
 
-import HeaderLogin from './HeaderLogin';
 import HeaderBase from './HeaderBase';
-import HeaderCourse from './HeaderCourse';
+import HeaderAuth from './HeaderAuth';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
-  const location = useLocation();
+  const { isAuth } = useSelector(({ auth }) => auth);
+ 
   const getHeader = () => {
-    if (location.pathname === '/' || location.pathname === '/cours') {
+    if( !isAuth) {
       return <HeaderBase/>
-    } else if ( location.pathname === '/frontend' || location.pathname === '/backend') {
-      return <HeaderCourse/>
-    }  else  {
-      return <HeaderLogin/>
+    } else {
+      return <HeaderAuth/>
     }
-  }
+  };
 
   return getHeader();
 };

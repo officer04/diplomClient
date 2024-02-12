@@ -1,23 +1,28 @@
-import {Link} from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom';
 
 import styles from './Footer.module.scss';
 
-import logo from './../../images/logo.svg'
+import logo from './../../images/logo.svg';
 import youtube from './../../images/youtube.svg';
 import vk from './../../images/vk.svg';
 import telegram from './../../images/telegram.svg';
+import { ROUTES } from '../../utils/conts';
 
 const Footer = () => {
+  const location = useLocation()
   return (
     <footer className={styles.footer}>
       <div className={styles.logo}>
         <img src={logo} alt="logo" />
       </div>
 
-      <nav className={styles.nav}>
-        <h3>Направление</h3>
-        <Link to='/cours'>Курсы</Link>
-      </nav>
+      {location.pathname === ROUTES.HOME  && (
+        <nav className={styles.nav}>
+          <Link to={ROUTES.COURS} className={styles.link}>
+            Курсы
+          </Link>
+        </nav>
+      )}
 
       <div className={styles.messenger}>
         <h3>Подпишитесь</h3>

@@ -4,6 +4,12 @@
   padding: 60px 0;
   color: $white;
 
+  .loading {
+    height: 65vh;
+    text-align: center;
+    font-size: 50px;
+  }
+
   .head {
     .title {
       margin-top: 20px;

@@ -4,12 +4,20 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { addUser, createUser } from './../../featers/auth/auth';
 import { useSelector, useDispatch } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
+import { IoEye } from 'react-icons/io5';
+import { FiX } from 'react-icons/fi';
+import { FaEyeSlash } from 'react-icons/fa';
 
 import exclamation from './../../images/exclamation.svg';
+import { ROUTES } from '../../utils/conts';
 
 const UserFormSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [visiblePassword, setVisiblePassword] = useState(true);
+  const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(true);
+
   const {
     register,
     reset,
@@ -21,19 +29,31 @@ const UserFormSignUp = () => {
   const [err, setErr] = useState('');
 
   const onSubmit = (data) => {
-    dispatch(createUser(data))
-      .then((response) => {
-        if (response.payload.response?.status === 400) {
-          setErr(response.payload.response.data.message);
-          reset();
-        }
+    dispatch(createUser(data)).then((response) => {
+      if (response.payload?.response?.status === 400) {
+        setErr(response.payload.response.data.message);
+        reset();
+      }
 
-        if (response.payload.status === 200) {
-          navigate('/account');
-          reset();
-        }
-      })
-      .catch((err) => console.log(err));
+      if (response.payload?.status === 200) {
+        const token = response.payload.data.token;
+        const user = jwtDecode(token);
+        localStorage.setItem('token', token);
+        dispatch(addUser(user));
+        // navigate(ROUTES.ACCOUNT);
+        navigate('/account', { replace: true });
+      }
+    });
+  };
+
+  const handleClickVisiblePassword = (e) => {
+    e.preventDefault();
+    setVisiblePassword(!visiblePassword);
+  };
+
+  const handleClickVisibleRepeatPassword = (e) => {
+    e.preventDefault();
+    setVisibleRepeatPassword(!visibleRepeatPassword);
   };
 
   return (
@@ -55,18 +75,18 @@ const UserFormSignUp = () => {
                 {...register('username', {
                   required: 'Поля обязательное к заполнению',
                   minLength: {
-                    value: 3,
+                    value: 5,
                     message: 'Минимум 5 символов в имени',
                   },
                 })}
               />
+              {errors?.username && (
+                <div className={styles.exclamation}>
+                  <img src={exclamation} />
+                  <p>{errors.username.message}</p>
+                </div>
+              )}
             </label>
-            {errors?.username && (
-              <div className={styles.exclamation}>
-                <img src={exclamation} />
-                <p>{errors.username.message}</p>
-              </div>
-            )}
           </div>
           <div className={styles.group}>
             <label>
@@ -81,66 +101,93 @@ const UserFormSignUp = () => {
                   },
                 })}
               />
+              {errors?.email && (
+                <div className={styles.exclamation}>
+                  <img src={exclamation} />
+                  <p>{errors.email.message}</p>
+                </div>
+              )}
             </label>
-            {errors?.email && (
-              <div className={styles.exclamation}>
-                <img src={exclamation} />
-                <p>{errors.email.message}</p>
-              </div>
-            )}
           </div>
           <div className={styles.group}>
             <label>
               <h3>Пароль</h3>
-              <input
-                type="password"
-                {...register('password', {
-                  required: 'Поля обязательное к заполнению',
-                  pattern: {
-                    value: /^(?=.*\d)\w{3,20}$/m,
-                    message:
-                      'Пароль должен состоять из ластинских букв и цифр длина от 3 до 20 символов',
-                  },
-                })}
-              />
-            </label>
-            {errors?.password && (
-              <div className={styles.exclamation}>
-                <img src={exclamation} />
-                <p>{errors.password.message}</p>
+              <div className={styles.inputPassword}>
+                <input
+                  type={!visiblePassword ? 'text' : 'password'}
+                  {...register('password', {
+                    required: 'Поля обязательное к заполнению',
+                    pattern: {
+                      value: /^(?=.*\d)\w{3,20}$/m,
+                      message:
+                        'Пароль должен состоять из ластинских букв и цифр длина от 3 до 20 символов',
+                    },
+                  })}
+                />
+                {!visiblePassword ? (
+                  <button className={styles.btnEye} onClick={(e) => handleClickVisiblePassword(e)}>
+                    <IoEye color={'black'} size={22} />
+                  </button>
+                ) : (
+                  <button className={styles.btnEye} onClick={(e) => handleClickVisiblePassword(e)}>
+                    <FaEyeSlash color={'black'} size={22} />
+                  </button>
+                )}
               </div>
-            )}
+
+              {errors?.password && (
+                <div className={styles.exclamation}>
+                  <img src={exclamation} />
+                  <p>{errors.password.message}</p>
+                </div>
+              )}
+            </label>
           </div>
           <div className={styles.group}>
             <label>
               <h3>Повторите пароль</h3>
-              <input
-                type="password"
-                {...register('repeatPassword', {
-                  required: 'Поля обязательное к заполнению',
-                  validate: (value, formValues) =>
-                    value === formValues.password || 'Пароли не совпадают',
-                })}
-              />
-            </label>
-            {errors?.repeatPassword && (
-              <div className={styles.exclamation}>
-                <img src={exclamation} />
-                <p>{errors.repeatPassword.message}</p>
+              <div className={styles.inputPassword}>
+                <input
+                  type={!visibleRepeatPassword ? 'text' : 'password'}
+                  {...register('repeatPassword', {
+                    required: 'Поля обязательное к заполнению',
+                    validate: (value, formValues) =>
+                      value === formValues.password || 'Пароли не совпадают',
+                  })}
+                />
+                {!visibleRepeatPassword ? (
+                  <button
+                    className={styles.btnEye}
+                    onClick={(e) => handleClickVisibleRepeatPassword(e)}
+                  >
+                    <IoEye color={'black'} size={22} />
+                  </button>
+                ) : (
+                  <button
+                    className={styles.btnEye}
+                    onClick={(e) => handleClickVisibleRepeatPassword(e)}
+                  >
+                    <FaEyeSlash color={'black'} size={22} />
+                  </button>
+                )}
               </div>
-            )}
+
+              {errors?.repeatPassword && (
+                <div className={styles.exclamation}>
+                  <img src={exclamation} />
+                  <p>{errors.repeatPassword.message}</p>
+                </div>
+              )}
+            </label>
           </div>
 
-          <button
-            className={`${isValid ? styles.button : styles.buttonDisabled}`}
-            disabled={!isValid}
-          >
+          <button className={styles.button} disabled={!isValid}>
             Зарегистрироваться
           </button>
         </form>
         <p className={styles.text}>
           У вас есть аккаунт?{' '}
-          <Link to="/login">
+          <Link to={ROUTES.LOGIN}>
             <span>Войти</span>
           </Link>
         </p>

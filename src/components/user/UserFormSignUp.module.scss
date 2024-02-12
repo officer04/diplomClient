@@ -5,8 +5,8 @@
   justify-content: center;
   align-items: center;
   color: $white;
-  // height: 65vh;
-  height: 100%;
+  height: 65vh;
+  // height: 100%;
 
   .wrapper {
     width: 368px;
@@ -30,7 +30,6 @@
       margin-bottom: 10px;
       font-size: 14px;
       color: $red;
-      
     }
 
     .form {
@@ -50,6 +49,29 @@
           font-size: 14px;
           font-weight: 500;
           color: $red;
+        }
+
+        .inputPassword {
+          position: relative;
+          
+          input {
+            padding: 15px 25px;
+            border-radius: 5px;
+            width: 100%;
+            margin-bottom: 5px;
+          }
+
+          .btnEye {
+            padding: 0;
+            border: none;
+            font: inherit;
+            color: inherit;
+            background-color: transparent;
+            cursor: pointer;
+            position: absolute;
+            top: 11px;
+            right: 10px;
+          }
         }
 
         input {
@@ -80,17 +102,10 @@
         cursor: pointer;
       }
 
-      .buttonDisabled {
-        font-family: 'Inter';
-        font-size: 16px;
-        margin-bottom: 15x;
-        padding: 15px 10px;
-        width: 100%;
-        border-radius: 10px;
-        color: $white;
+      .button:disabled {
+        cursor: default;
         background-color: #0d0351;
       }
-      
     }
 
     .text {

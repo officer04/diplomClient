@@ -2,16 +2,31 @@ import styles from './TaskMyCours.module.scss';
 import arrowLeft from './../../../images/arrow-left.svg';
 import arrowRight from './../../../images/arrow-right.svg';
 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { ROUTES } from '../../../utils/conts';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLessonOne } from '../../../featers/cours/cours';
 
 const TaskMyCours = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { lesson, isLoading } = useSelector(({ cours }) => cours);
+  useEffect(() => {
+    dispatch(getLessonOne(id));
+  }, []);
+
+  console.log(lesson);
+  const youtubeUrl = 'https://www.youtube.com/embed/';
   return (
     <div className={styles.taskMyCours}>
       <div className={styles.head}>
-        <Link to="/my-cours">Мои курсы /</Link>
-        <Link to="/single-my-cours"> frontend разработчик</Link>
-        <Link to="/single-my-cours-tasks"> / День 5. создание игры</Link>
-        <h1 className={styles.title}>День 5. Создание игры AIM Game</h1>
+        <Link to={ROUTES.LIST_MY_COURS}>Мои курсы /</Link>
+        <Link to={`${ROUTES.SINGLE_MY_COURS}/${lesson.coursId}`}> {lesson.titleCours} </Link>
+        <Link to={`${ROUTES.SINGLE_MY_COURS_TASK}/${lesson.moduleId}`}>
+          / {lesson.titileModule}
+        </Link>
+        <h1 className={styles.title}>{lesson.title}</h1>
       </div>
       <div className={styles.navigate}>
         <div className={styles.btnBack}>
@@ -23,15 +38,18 @@ const TaskMyCours = () => {
           <img src={arrowRight} alt="" />
         </div>
       </div>
-      <iframe
-        width="1100"
-        height="535"
-        src="https://www.youtube.com/embed/GQ_pTmcXNrQ"
-        title="Полный Full Stack курс ReactJS + NodeJS для начинающих за 4 часа! (MongoDB, Express, React, NodeJS)"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
+      {!isLoading ? (
+        <h3 className={styles.loading}>Loading....</h3>
+      ) : (
+        <iframe
+          width="1100"
+          height="535"
+          src={`${youtubeUrl}${lesson.youtubeVideoId}`}
+          title="Полный Full Stack курс ReactJS + NodeJS для начинающих за 4 часа! (MongoDB, Express, React, NodeJS)"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        ></iframe>
+      )}
     </div>
   );
 };

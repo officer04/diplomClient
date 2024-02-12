@@ -9,17 +9,26 @@ import SpecialistBonus from '../../components/SpecialistBonus/SpecialistBonus';
 import CardFront from '../../components/CardFront/CardFront';
 import PriceCours from '../../components/PriceCours/PriceCours';
 
-import { dataInfoCoursFront, dataInfoProgramCoursFront, dataInfoBaseFront } from '../../utils/commom';
+import {
+  dataInfoCoursFront,
+  dataInfoProgramCoursFront,
+  dataInfoBaseFront,
+} from '../../utils/commom';
 import { dataInfoLearnFront } from '../../utils/commom';
 
 const Frontend = () => {
-
   useEffect(() => {
     window.scroll(0, 0);
-  })
+  });
+  
   return (
     <div>
-      <BaseInformation title={dataInfoBaseFront[0].title } description={dataInfoBaseFront[0].description} titleColor={styles.titleColor} btnColor={styles.bg} />
+      <BaseInformation
+        title={dataInfoBaseFront[0].title}
+        description={dataInfoBaseFront[0].description}
+        titleColor={styles.titleColor}
+        btnColor={styles.bg}
+      />
 
       <div className={styles.infoFront}>
         <h1 className={styles.title}>
@@ -48,14 +57,14 @@ const Frontend = () => {
         </div>
       </div>
 
-      <SpecialistBonus style={styles.bg}/>
+      <SpecialistBonus style={styles.bg} />
 
       <div className={styles.learn}>
         <h2 className={styles.title}>
           Чему вы <span>научитесь</span>
         </h2>
         <div className={styles.wrapper}>
-        {dataInfoLearnFront.map((obj) => (
+          {dataInfoLearnFront.map((obj) => (
             <CardFront
               key={obj.id}
               title={obj.title}
@@ -66,7 +75,7 @@ const Frontend = () => {
         </div>
       </div>
 
-      <Salary styleBg={styles.bg} />
+      <Salary styleBg={styles.bg} styleTitleColor={styles.titleColor} />
 
       <div className={styles.feedback}>
         <div className={styles.wrapper}>
@@ -80,10 +89,13 @@ const Frontend = () => {
         </div>
       </div>
 
-      <PriceCours btnColor={styles.btnColor}/>
-
-
-      <ProgramsList products={dataInfoProgramCoursFront} styleBg={styles.bg} styleBottomLine={styles.bottomLine}/>
+      <PriceCours btnColor={styles.btnColor}  />
+      
+      <ProgramsList
+        products={dataInfoProgramCoursFront}
+        styleBg={styles.bg}
+        styleBottomLine={styles.bottomLine}
+      />
     </div>
   );
 };

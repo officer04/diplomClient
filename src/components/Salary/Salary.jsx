@@ -1,9 +1,9 @@
 import styles from './Salary.module.scss';
 
-const Salary = ({styleBg}) => {
+const Salary = ({styleBg, styleTitleColor}) => {
   return (
     <div className={styles.salary}>
-      <h1 className={styles.title}>Зарплата <span>frontend-разработчика</span></h1>
+      <h1 className={styles.title}>Зарплата <span className={styleTitleColor}>frontend-разработчика</span></h1>
       <p className={styles.text}>по данным hh.ru в среднем составляет</p>
       <div className={styles.wrapper}>
         <div className={styles.left}>

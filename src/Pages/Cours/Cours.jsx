@@ -5,6 +5,7 @@ import styles from './Cours.module.scss';
 
 import ElipsRed from './../../images/EllipseRed.svg'
 import ElipsBlue from './../../images/EllipseBlue.svg'
+import { ROUTES } from '../../utils/conts';
 
 const Cours = () => {
   useEffect(() => {
@@ -22,21 +23,23 @@ const Cours = () => {
     <section>
       <div className={styles.banner}>
         <div className={styles.wrapper}>
-          <h1>Стать джуниором в 2024 году </h1>
+          <h1>Стать джуниором в {new Date().getFullYear()} году </h1>
           <p>
             Мы сделаем из вас junior-разработчика с доходом от 70.000 ₽ и гарантией для
             трудоустройства
           </p>
-          <Link to="" onClick={() => scroll(600)}>
+          {/* <Link to="" onClick={() => scroll(600)}>
             <button>Узнать больше</button>
-          </Link>
+          </Link> */}
+          <button onClick={() => scroll(600)}>Узнать больше</button>
+
         </div>
       </div>
       <div id='' className={styles.cours}>
         <h1 className={styles.title}>Какие направления можно выбрать</h1>
         <div className={styles.wrapper}>
-          <Link to="/frontend" className={styles.link}>
-            <img src={ElipsBlue} className={styles.img} alt="" />
+          <Link to={ROUTES.FRONTEND} className={styles.link}>
+            <img src={ElipsBlue} className={styles.img} alt="ElipsBlue" />
             <div className={styles.card}>
               <h3>
                 Junior <br /> frontend разработчик
@@ -48,8 +51,8 @@ const Cours = () => {
               <p>С нуля 12 месяцев</p>
             </div>
           </Link>
-          <Link to="/backend" className={styles.link}>
-            <img src={ElipsRed} alt="" />
+          <Link to={ROUTES.BACKEND} className={styles.link}>
+            <img src={ElipsRed} alt="ElipsRed" />
             <div className={styles.card}>
               <h3>
                 Junior <br /> bakend разработчик
@@ -68,7 +71,7 @@ const Cours = () => {
         <div className={styles.diagnostics}>
           <h3>Диагностика</h3>
           <p>Пройти его и узнай в какую сферу у тебя больше направленность</p>
-          <Link to="/single-question" >Тык сюда</Link>
+          <Link to={ROUTES.SINGLE_QUESTION} >Тык сюда</Link>
         </div>
       </div>
     </section>

@@ -14,19 +14,26 @@
   .nav {
     text-align: center;
 
-    h3 {
+    a {
       font-size: 24px;
       font-weight: 500;
-      margin-bottom: 30px;
-    }
-
-    a {
-      font-size: 20px;
       color: $white;
       cursor: pointer;
     }
-  }
 
+    .link {
+      color: $white;
+      cursor: pointer;
+      font-family: 'Inter';
+      transition: 0.15s ease-in;
+    }
+
+    .link:hover {
+      color: rgb(182, 33, 33);
+    }
+
+    
+  }
 
   .messenger {
     text-align: center;

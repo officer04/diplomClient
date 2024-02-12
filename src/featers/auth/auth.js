@@ -1,61 +1,111 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { authAxios, instance } from '../index';
+import { jwtDecode } from 'jwt-decode';
+
 
 export const createUser = createAsyncThunk('users/createUser', async (payload, thunkAPI) => {
   try {
-    // const response = await axios({
-    //   method: 'post',
-    //   url: 'http://localhost:5000/auth/registration',
-    //   data: {
-    //     username: payload.username,
-    //     password: payload.password,
-    //   },
-    // });
-    const response = await axios.post('http://localhost:5000/auth/registration', payload);
-    console.log(response)
+    const response = await authAxios.post(`/auth/registration`, payload);
     return response;
   } catch (error) {
-    console.log(error);
     return thunkAPI.rejectWithValue(error);
   }
 });
 
 export const loginUser = createAsyncThunk('users/loginUser', async (payload, thunkAPI) => {
   try {
-    const response = await axios.post('http://localhost:5000/auth/login', payload);
-    console.log(response)
+    const response = await authAxios.post(`/auth/login`, payload);
     return response;
   } catch (error) {
-    console.log(error);
     return thunkAPI.rejectWithValue(error);
   }
 });
 
+export const changeUser = createAsyncThunk('auth/changeUser', async (payload, thunkAPI) => {
+  try {
+    const response = await instance.patch(`/auth/change`, payload);
+    console.log(response);
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const resetPassword = createAsyncThunk('auth/resetPassword', async (payload, thunkAPI) => {
+  try {
+    const response = await authAxios.post(
+      `/auth/reset-password/${payload.requestId}`,
+      payload.body,
+    );
+    console.log(response);
+    return response;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const resetPasswordRequest = createAsyncThunk(
+  'auth/resetPasswordRequest',
+  async (payload, thunkAPI) => {
+    try {
+      const response = await authAxios.post(`/auth/reset-password-request`, payload);
+      console.log(response);
+      return response;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+const getDefaultUser = () => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    return {}
+      }
+  const user = jwtDecode(token);
+    if (new Date() > new Date(user.exp * 1000)) {
+      return {}
+    }
+    return user
+}
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: {},
+    user: getDefaultUser(),
     isLoading: null,
+    isAuth: !!localStorage.getItem('token'),
+    isModalAccount: false,
   },
   reducers: {
     addUser: (state, { payload }) => {
       state.user = payload;
     },
-    addIsloading: (state, {payload}) => {
+    addIsloading: (state, { payload }) => {
       state.isLoading = payload;
-    }
+    },
+    addAuth: (state, { payload }) => {
+      state.isAuth = payload;
+    },
+    toggleModal: (state, { payload }) => {
+      state.isModalAccount = payload;
+    },
+   
   },
 
   extraReducers: (builder) => {
     builder.addCase(createUser.fulfilled, (state, action) => {
-      state.user = action.payload
+      state.isAuth = true;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.isLoading = action.payload
+      // state.isLoading = action.payload;
+      state.isAuth = true;
+      // state.isByes = true;
     });
   },
 });
 
-export const { addUser, addIsloading } = authSlice.actions;
+export const { addUser, addIsloading, addAuth, toggleModal, addIsNewUser } = authSlice.actions;
 
 export default authSlice.reducer;
