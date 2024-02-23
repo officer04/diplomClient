@@ -3,22 +3,23 @@ import { useEffect } from 'react';
 
 import styles from './Cours.module.scss';
 
-import ElipsRed from './../../images/EllipseRed.svg'
-import ElipsBlue from './../../images/EllipseBlue.svg'
+import ElipsRed from './../../images/EllipseRed.svg';
+import ElipsBlue from './../../images/EllipseBlue.svg';
 import { ROUTES } from '../../utils/conts';
+import ButtonLink from '../../components/UI/button/ButtonLink';
 
 const Cours = () => {
   useEffect(() => {
     window.scroll(0, 0);
-  })
-  
+  });
+
   const scroll = (xp) => {
     window.scrollTo({
       top: xp,
-      behavior: "smooth"
-    })
-  }
-  
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <section>
       <div className={styles.banner}>
@@ -32,10 +33,9 @@ const Cours = () => {
             <button>Узнать больше</button>
           </Link> */}
           <button onClick={() => scroll(600)}>Узнать больше</button>
-
         </div>
       </div>
-      <div id='' className={styles.cours}>
+      <div id="" className={styles.cours}>
         <h1 className={styles.title}>Какие направления можно выбрать</h1>
         <div className={styles.wrapper}>
           <Link to={ROUTES.FRONTEND} className={styles.link}>
@@ -71,7 +71,7 @@ const Cours = () => {
         <div className={styles.diagnostics}>
           <h3>Диагностика</h3>
           <p>Пройти его и узнай в какую сферу у тебя больше направленность</p>
-          <Link to={ROUTES.SINGLE_QUESTION} >Тык сюда</Link>
+          <ButtonLink to={ROUTES.SINGLE_QUESTION} styleWidth={styles.btnWidth}>Тык сюда</ButtonLink>
         </div>
       </div>
     </section>

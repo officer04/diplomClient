@@ -5,10 +5,10 @@ import { ROUTES } from '../../../utils/conts';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import ModalAccount from '../../ModalAccount/ModalAccount';
+import ButtonLink from '../../UI/button/ButtonLink';
 
 const Account = () => {
   const { isModalAccount } = useSelector(({ auth }) => auth);
-  document.title = 'Личный кабинет';
 
   return (
     <div className={styles.account}>
@@ -16,7 +16,7 @@ const Account = () => {
       <div className={styles.text}>
         <h1>Не знаете с чего начать?</h1>
         <p>Откройте для себя что-то новое, пройдите тест и решите какой курс подойдёт именно вам</p>
-        <Link to={ROUTES.SINGLE_QUESTION}>Тык сюда</Link>
+        <ButtonLink to={ROUTES.SINGLE_QUESTION} styleWidth={styles.btnWidth}>Тык сюда</ButtonLink>
       </div>
       <div>
         <img src={bg} alt="" />

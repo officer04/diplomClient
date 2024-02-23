@@ -3,6 +3,7 @@ import styles from './SingleQuestion.module.scss';
 import { dataInfoQuestions } from '../../utils/commom';
 import { useState } from 'react';
 import ModalChoice from '../ModalChoice/ModalChoice';
+import Button from '../UI/button/Button';
 
 const SingleQuestion = () => {
   const [count, setCount] = useState(0);
@@ -42,13 +43,21 @@ const SingleQuestion = () => {
       </div>
       <div className={styles.wrapperBtn}>
         <div className={styles.cardBtn}>
-          <button className={styles.btn} onClick={handlePrev} disabled={count === 0 ? true : false}>
+          <Button
+            styleWidth={styles.btnWidth}
+            onClick={handlePrev}
+            disabled={count === 0 ? true : false}
+          >
             Назад
-          </button>
+          </Button>
           <p>{dataInfoQuestions[count].id}/10</p>
-          <button className={styles.btn} onClick={handleNext} disabled={!value ? true : false}>
+          <Button
+            styleWidth={styles.btnWidth}
+            onClick={handleNext}
+            disabled={!value ? true : false}
+          >
             {count === 9 ? 'Завершить' : 'Вперёд'}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

@@ -11,12 +11,14 @@ import { FaEyeSlash } from 'react-icons/fa';
 
 import exclamation from './../../images/exclamation.svg';
 import { ROUTES } from '../../utils/conts';
+import Button from '../UI/button/Button';
 
 const UserFormSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [visiblePassword, setVisiblePassword] = useState(true);
   const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -29,13 +31,17 @@ const UserFormSignUp = () => {
   const [err, setErr] = useState('');
 
   const onSubmit = (data) => {
+    setIsLoading(true);
+
     dispatch(createUser(data)).then((response) => {
       if (response.payload?.response?.status === 400) {
         setErr(response.payload.response.data.message);
+        setIsLoading(false);
         reset();
       }
 
       if (response.payload?.status === 200) {
+        setIsLoading(false);
         const token = response.payload.data.token;
         const user = jwtDecode(token);
         localStorage.setItem('token', token);
@@ -180,10 +186,9 @@ const UserFormSignUp = () => {
               )}
             </label>
           </div>
-
-          <button className={styles.button} disabled={!isValid}>
+          <Button disabled={!isValid || isLoading} styleWidth={styles.buttonWidth}>
             Зарегистрироваться
-          </button>
+          </Button>
         </form>
         <p className={styles.text}>
           У вас есть аккаунт?{' '}

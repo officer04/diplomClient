@@ -15,6 +15,12 @@ export const ROUTES = {
   ADMIN: '/admin',
   RESET_PASSWORD: '/auth/reset-password',
   RESET_PASSWORD_REQUEST: '/auth/reset-password-request',
+  COURSES_ADMIN: '/admin/courses',
+  MODULES_ADMIN: '/admin/cours-modules',
+  CHANGE_COURS: '/admin/cours',
+  CREATE_COURS: '/admin/create-cours',
+  CREATE_MODULE: '/admin/create-module',
+  CHANGE_MODULE: '/admin/module',
 };
 
 export const BaseURL = 'http://localhost:5000';

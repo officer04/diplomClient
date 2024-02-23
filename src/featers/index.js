@@ -15,8 +15,14 @@ const authInterceptor = (config) => {
 };
 
 instance.interceptors.request.use(authInterceptor);
+// instance.interceptors.response.use(
+//   function (response) {
+//     return response;
+//   },
+//   function (error) {
+//     console.log(error);
+//     return error.response;
+//   },
+// );
 
-export {
-  authAxios,
-  instance,
-};
+export { authAxios, instance };

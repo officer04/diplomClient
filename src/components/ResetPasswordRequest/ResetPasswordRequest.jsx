@@ -17,6 +17,8 @@ const ResetPasswordRequest = () => {
   const navigate = useNavigate();
   const [isVisibleForm, setIsVisibleForm] = useState(false);
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(false);
 
   const {
@@ -30,14 +32,17 @@ const ResetPasswordRequest = () => {
   const [err, setErr] = useState();
 
   const onSubmit = (data) => {
+    setIsLoading(true);
     setEmail(data.email);
     dispatch(resetPasswordRequest(data)).then((response) => {
       if (response.payload?.response?.status === 400) {
         setErr(response.payload.response.data.message);
+        setIsLoading(false);
         reset();
       }
       if (response.payload?.status === 201) {
         setIsVisibleForm(true);
+        setIsLoading(false);
         reset();
       }
     });
@@ -46,9 +51,7 @@ const ResetPasswordRequest = () => {
   const handleClickResetText = () => {};
 
   const handleClick = () => {
-    // navigate(ROUTES.LOGIN);
-
-    navigate("login", {replace: true})
+    navigate(ROUTES.LOGIN);
   };
   return (
     <div className={styles.resetPassword}>
@@ -84,7 +87,7 @@ const ResetPasswordRequest = () => {
                 )}
               </label>
             </div>
-            <button className={styles.button} disabled={!isValid}>
+            <button className={styles.button} disabled={!isValid || isLoading}>
               Отправить
             </button>
           </form>

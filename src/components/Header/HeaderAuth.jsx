@@ -9,7 +9,7 @@ import { isAction } from '@reduxjs/toolkit';
 const HeaderAuth = () => {
   const navigate = useNavigate();
   const dispath = useDispatch();
-  const { isAuth, isByes, user } = useSelector(({ auth }) => auth);
+  const { user } = useSelector(({ auth }) => auth);
   const logOut = () => {
     localStorage.getItem('token');
     localStorage.removeItem('token');
@@ -18,27 +18,43 @@ const HeaderAuth = () => {
   };
   return (
     <header className={styles.header}>
-      <Link to={ROUTES.ACCOUNT}>
+      <Link to={user.role === 'ADMIN' ? ROUTES.COURSES_ADMIN : ROUTES.ACCOUNT}>
         <div className={styles.logo}>
           <img src={logo} alt="logo" />
         </div>
       </Link>
+      {user.role === 'ADMIN' ? null : (
+        <div className={styles.menu}>
+          <NavLink
+            to={ROUTES.ACCOUNT}
+            className={({ isActive }) =>
+              isActive ? `${styles.link} ${styles.active}` : styles.link
+            }
+          >
+            Гланая
+          </NavLink>
+          <NavLink
+            to={ROUTES.LIST_MY_COURS}
+            className={({ isActive }) =>
+              isActive ? `${styles.link} ${styles.active}` : styles.link
+            }
+          >
+            Все курсы
+          </NavLink>
+        </div>
+      )}
 
-      <div className={styles.menu}>
-        <NavLink
-          to={ROUTES.ACCOUNT}
-          className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}
-        >
-          Гланая
-        </NavLink>
-        <NavLink
-          to={ROUTES.LIST_MY_COURS}
-          className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}
-        >
-          Все курсы
-        </NavLink>
-      </div>
-
+      {/* {user.role === 'ADMIN' ||
+        ('USER' && (
+          <div className={styles.wrapper}>
+            <p className={styles.user} onClick={() => dispath(toggleModal(true))}>
+              {user.username}
+            </p>
+            <p className={styles.logOut} onClick={logOut}>
+              Выйти
+            </p>
+          </div>
+        ))} */}
       <div className={styles.wrapper}>
         <p className={styles.user} onClick={() => dispath(toggleModal(true))}>
           {user.username}

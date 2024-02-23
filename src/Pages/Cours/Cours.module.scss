@@ -82,8 +82,14 @@
   }
 
   .diagnostics {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
     padding: 100px 0;
     color: $white;
+
     h3 {
       font-size: 32px;
       font-weight: 500;
@@ -96,17 +102,27 @@
       margin-bottom: 45px;
     }
 
-    a {
-      font-size: 20px;
+    .btnPadding {
       padding: 15px 50px;
-      background-color: $red;
-      border-radius: 10px;
-      color: #fff;
-      cursor: pointer;
-      transition: 0.5s;
-      font-family: 'Inter';
     }
 
+    .btnColor {
+      background-color: red;
+    }
+
+    a {
+      padding: 15px 50px;
+      font-family: 'Inter';
+      background-color: red;
+      border-radius: 10px;
+      color: #fff;
+      transition: 0.5s;
+      cursor: pointer;
+    }
+
+    .btnWidth {
+      width: 270px;
+    }
     a:hover {
       background-color: $redHover;
     }

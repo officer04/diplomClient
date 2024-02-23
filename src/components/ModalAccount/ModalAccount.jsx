@@ -5,13 +5,16 @@ import { jwtDecode } from 'jwt-decode';
 import exclamation from './../../images/exclamation.svg';
 
 import styles from './ModalAccount.module.scss';
-import { addUser, changeUser, toggleModal } from '../../featers/auth/auth';
+import { addUser, changeUser, getRole, toggleModal } from '../../featers/auth/auth';
 import { useState } from 'react';
+import Button from '../UI/button/Button';
 
 const ModalAccount = () => {
+  const dispatch = useDispatch();
   const { user } = useSelector(({ auth }) => auth);
   const [err, setErr] = useState('');
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     reset,
@@ -25,20 +28,24 @@ const ModalAccount = () => {
     mode: 'onBlur',
   });
   const onSubmit = (data) => {
-    dispatch(changeUser(data)).then((response) => {
-      if (response.payload.response?.status === 400) {
-        setErr(response.payload.response.data.message);
-        reset();
-      }
+    setIsLoading(true);
+    dispatch(changeUser(data)).then((error) => {
+      console.log(error);
+      // if (response.payload.response?.status === 400 || response.payload.response?.status === 401) {
+      //   setErr(response.payload.response.data.message);
+      //   setIsLoading(false);
+      //   reset();
+      // }
 
-      if (response.payload?.status === 200) {
-        const token = response.payload.data.token;
-        const user = jwtDecode(token);
-        // const userRole = user.roles[0];
-        localStorage.setItem('token', token);
-        dispatch(addUser(user));
-        dispatch(toggleModal(false));
-      }
+      // if (response.payload?.status === 200) {
+      //   const token = response.payload.data.token;
+      //   const user = jwtDecode(token);
+      //   localStorage.setItem('token', token);
+      //   dispatch(addUser(user));
+      //   dispatch(getRole(user.role));
+      //   dispatch(toggleModal(false));
+      //   setIsLoading(false);
+      // }
     });
   };
   return (
@@ -136,12 +143,9 @@ const ModalAccount = () => {
               </div>
             )}
           </label>
-          <button
-            className={`${isValid ? styles.button : styles.buttonDisabled}`}
-            disabled={!isValid}
-          >
+          <Button disabled={!isValid || isLoading} styleWidth={styles.btnWidth}>
             Сохранить
-          </button>
+          </Button>
         </form>
       </div>
     </div>

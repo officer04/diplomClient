@@ -7,10 +7,10 @@ import { useEffect } from 'react';
 
 function App() {
   const dispath = useDispatch();
-  useEffect(() => {
-    dispath(getCards());
-    dispath(getCoursInfoDate());
-  }, []);
+  // useEffect(() => {
+  //   dispath(getCards());
+  //   dispath(getCoursInfoDate());
+  // }, []);
   return (
     <div className="App">
       <div className="container">

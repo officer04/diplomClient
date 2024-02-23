@@ -1,9 +1,19 @@
-import React from 'react'
+
+const items = ['Разработка', 'Продакшн'];
 
 const Admin = () => {
   return (
-    <div>Админими</div>
-  )
-}
+    // <div className={styles.wrapper}>
+    //   <ModalAdmin />
+    //   <ChangeCours />
+    //   <Dropdown title="Статус" items={items}/>
 
-export default Admin
+    // </div>
+    <>
+      {/* <Courses/> */}
+      {/* <ChangeCours /> */}
+    </>
+  );
+};
+
+export default Admin;

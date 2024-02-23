@@ -29,9 +29,10 @@ const ListMyCours = () => {
           ? courses.map((cours) => (
               <CardMyCours
                 key={cours._id}
-                title={cours.title}
                 id={cours._id}
+                title={cours.title}
                 description={cours.description}
+                img={cours.imgUrl}
               />
             ))
           : new Array(4).fill(0).map((_, index) => (

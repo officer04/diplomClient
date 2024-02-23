@@ -56,26 +56,10 @@
       border-radius: 10px;
       border: 1px solid $white;
 
-      .btn {
-        padding: 15px 10px;
+      .btnWidth {
         width: 200px;
-        border-radius: 10px;
-        background-color: $blue;
-        font-size: 16px;
-        color: $white;
-        cursor: pointer;
-        transition: background-color 0.15s ease-in;
-        font-family: 'Inter';
       }
 
-      .btn:hover {
-        background-color: $blueHover;
-      }
-
-      .btn:disabled {
-        cursor: default;
-        background-color: #0d0351;
-      }
 
       p {
         font-size: 16px;

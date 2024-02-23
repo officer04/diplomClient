@@ -1,6 +1,91 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { instance } from '../index';
 
+export const createCours = createAsyncThunk('cours/createCours', async (payload, thunkAPI) => {
+  try {
+    const response = await instance.post(`/cours`, payload);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const deleteCours = createAsyncThunk('cours/deleteCours', async (coursId, thunkAPI) => {
+  try {
+    const response = await instance.delete(`/cours/${coursId}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const changeCours = createAsyncThunk('cours/changeCours', async (payload, thunkAPI) => {
+  try {
+    const response = await instance.patch(`/cours/${payload.id}`, payload.data);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+// export const changeCours = createAsyncThunk('cours/changeCours', async (payload, thunkAPI) => {
+//   const response = await instance.patch(`/cours/${payload.id}`, payload.data);
+//   return response.data;
+// });
+
+export const createModule = createAsyncThunk('cours/createModule', async (payload, thunkAPI) => {
+  try {
+    const response = await instance.post(`/module`, payload);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const deleteModule = createAsyncThunk('cours/deleteModule', async (moduleId, thunkAPI) => {
+  try {
+    const response = await instance.delete(`/module/${moduleId}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const getModuleOne = createAsyncThunk('cours/getModuleOne', async (moduleId, thunkAPI) => {
+  try {
+    const response = await instance.get(`/module/details/${moduleId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const changeModule = createAsyncThunk('cours/changeModule', async (payload, thunkAPI) => {
+  try {
+    const response = await instance.patch(`/module/${payload.moduleId}`, payload.data);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const getCourses = createAsyncThunk('cours/getCourses', async (_, thunkAPI) => {
+  try {
+    const response = await instance.get(`/cours`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
 export const getCours = createAsyncThunk('cours/getCours', async (_, thunkAPI) => {
   try {
     const response = await instance.get(`/cours`);
@@ -36,6 +121,19 @@ export const getCoursModule = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await instance.get(`/module/${payload}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const getCoursModuleAll = createAsyncThunk(
+  'cours/getCoursModuleAll',
+  async (_, thunkAPI) => {
+    try {
+      const response = await instance.get(`/module`);
       console.log(response);
       return response.data;
     } catch (error) {
@@ -58,18 +156,15 @@ export const getCoursModuleLesson = createAsyncThunk(
   },
 );
 
-export const getLessonOne = createAsyncThunk(
-  'cours/getLessonOne',
-  async (payload, thunkAPI) => {
-    try {
-      const response = await instance.get(`/lesson/details/${payload}`);
-      return response.data;
-    } catch (error) {
-      console.log(error);
-      return thunkAPI.rejectWithValue(error);
-    }
-  },
-);
+export const getLessonOne = createAsyncThunk('cours/getLessonOne', async (payload, thunkAPI) => {
+  try {
+    const response = await instance.get(`/lesson/details/${payload}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return thunkAPI.rejectWithValue(error);
+  }
+});
 
 export const coursSlice = createSlice({
   name: 'cours',
@@ -78,17 +173,38 @@ export const coursSlice = createSlice({
     modules: [],
     lessonsInfo: [],
     lesson: {},
-    cours: '',
+    cours: {},
+    module: {},
     isLoading: false,
   },
   reducers: {},
 
   extraReducers: (builder) => {
+    builder.addCase(changeCours.fulfilled, (state, { payload }) => {
+      state.cours = payload;
+      // state.isLoading = false;
+    });
     builder.addCase(getCours.pending, (state) => {
       state.courses = [];
       state.isLoading = false;
     });
     builder.addCase(getCours.fulfilled, (state, { payload }) => {
+      state.courses = payload;
+      state.isLoading = true;
+    });
+    builder.addCase(getCourses.pending, (state) => {
+      state.courses = [];
+      state.isLoading = false;
+    });
+    builder.addCase(getCoursModuleAll.pending, (state) => {
+      state.modules = [];
+      state.isLoading = false;
+    });
+    builder.addCase(getCoursModuleAll.fulfilled, (state, { payload }) => {
+      state.modules = payload;
+      state.isLoading = true;
+    });
+    builder.addCase(getCourses.fulfilled, (state, { payload }) => {
       state.courses = payload;
       state.isLoading = true;
     });
@@ -109,15 +225,26 @@ export const coursSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getCoursOne.pending, (state) => {
-      state.cours = [];
+      state.cours = {};
       state.isLoading = false;
+    });
+    builder.addCase(getModuleOne.fulfilled, (state, { payload }) => {
+      state.module = payload;
+      // state.isLoading = false;
     });
     builder.addCase(getCoursOne.fulfilled, (state, { payload }) => {
       state.cours = payload;
     });
     builder.addCase(getLessonOne.fulfilled, (state, { payload }) => {
       state.lesson = payload;
-      state.isLoading = true
+      state.isLoading = true;
+    });
+    builder.addCase(createModule.pending, (state, { payload }) => {
+      // state.cours = payload;
+    });
+    builder.addCase(createModule.fulfilled, (state, { payload }) => {
+      // state.modules = payload;
+      state.modules.push(payload);
     });
   },
 });

@@ -9,10 +9,11 @@ import { FaEyeSlash } from 'react-icons/fa';
 
 import exclamation from './../../images/exclamation.svg';
 
-import { addAuth, addIsNewUser, addUser, loginUser } from '../../featers/auth/auth';
+import { addAuth, addIsNewUser, addUser, getRole, loginUser } from '../../featers/auth/auth';
 
 import styles from './UserFormLogin.module.scss';
 import { ROUTES } from '../../utils/conts';
+import Button from '../UI/button/Button';
 
 const UserFormLogin = () => {
   const dispatch = useDispatch();
@@ -20,44 +21,35 @@ const UserFormLogin = () => {
   const location = useLocation();
   const [err, setErr] = useState('');
   const [visiblePassword, setVisiblePassword] = useState(false);
-  const [requestAuth, setRequestAuth] = useState(false);
-  const [data, setData] = useState({ email: '', password: '' });
+  const [isLoading, setIsLoading] = useState(false);
 
   let fromPage = location.state?.from?.pathname || ROUTES.ACCOUNT;
   const {
     register,
     reset,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isValid},
     handleSubmit,
   } = useForm({
     mode: 'onBlur',
-    defaultValues: {
-      email: data.email,
-      password: data.password,
-    },
   });
   const onSubmit = (data) => {
+    setIsLoading(true);
     dispatch(loginUser(data)).then((response) => {
       if (response.payload.response?.status === 400) {
         setErr(response.payload.response.data.message);
+        setIsLoading(false);
         reset();
       }
 
       if (response.payload?.status === 200) {
+        setIsLoading(false);
         const token = response.payload.data.token;
         const user = jwtDecode(token);
-        const userRole = user.roles[0];
+        const userRole = user.role;
         localStorage.setItem('token', token);
         dispatch(addUser(user));
-
-        // userRole === 'ADMIN'
-        //   ? navigate(ROUTES.ADMIN)
-        //   : isNewUser
-        //   ? navigate(ROUTES.ACCOUNT)
-        //   : navigate(ROUTES.LIST_MY_COURS);
-
-        // navigate('/account', { replace: true });
-        navigate(fromPage);
+        dispatch(getRole(user.role));
+        userRole === 'ADMIN' ? navigate(ROUTES.COURSES_ADMIN) : navigate(fromPage);
       }
     });
   };
@@ -136,12 +128,9 @@ const UserFormLogin = () => {
           <div className={styles.resetPassword}>
             <Link to={ROUTES.RESET_PASSWORD_REQUEST}>Забыли пароль?</Link>
           </div>
-          <button
-            className={`${isValid ? styles.button : styles.buttonDisabled}`}
-            disabled={!isValid}
-          >
+          <Button disabled={!isValid || isLoading} styleWidth={styles.buttonWidth}>
             Войти
-          </button>
+          </Button>
         </form>
         <p className={styles.text}>
           У вас есть аккаунт?{' '}

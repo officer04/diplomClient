@@ -22,9 +22,9 @@ const TaskMyCours = () => {
     <div className={styles.taskMyCours}>
       <div className={styles.head}>
         <Link to={ROUTES.LIST_MY_COURS}>Мои курсы /</Link>
-        <Link to={`${ROUTES.SINGLE_MY_COURS}/${lesson.coursId}`}> {lesson.titleCours} </Link>
+        <Link to={`${ROUTES.SINGLE_MY_COURS}/${lesson.coursId}`}> {lesson.coursTitle} </Link>
         <Link to={`${ROUTES.SINGLE_MY_COURS_TASK}/${lesson.moduleId}`}>
-          / {lesson.titileModule}
+          / {lesson.moduleTitle}
         </Link>
         <h1 className={styles.title}>{lesson.title}</h1>
       </div>

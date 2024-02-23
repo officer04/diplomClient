@@ -3,6 +3,7 @@ import CardMyCours from './../CardMyCours/CardMyCours';
 
 import styles from './SingleMyCours.module.scss';
 import { Link, useParams } from 'react-router-dom';
+import { FaPlus } from 'react-icons/fa';
 import ContentLoader from 'react-content-loader';
 
 import leftCircle from './../../../images/arrow-left-circle.svg';
@@ -31,6 +32,7 @@ const SingleMyCours = () => {
           <CardMyCours
             title={cours.title}
             description={cours.description}
+            img={cours.imgUrl}
             style={styles.cardWidth}
             disable={false}
           />

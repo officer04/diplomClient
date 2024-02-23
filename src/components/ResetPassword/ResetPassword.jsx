@@ -17,7 +17,9 @@ const ResetPassword = () => {
   const { id } = useParams();
   const [visiblePassword, setVisiblePassword] = useState(false);
   const [visibleRepeatPassword, setVisibleRepeatPassword] = useState(false);
-  console.log(id);
+  const [err, setErr] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     reset,
@@ -26,19 +28,18 @@ const ResetPassword = () => {
   } = useForm({
     mode: 'onBlur',
   });
-  const [err, setErr] = useState('');
 
   const onSubmit = (obj) => {
+    setIsLoading(true);
     const data = { requestId: id, body: { newPassword: obj.password } };
     dispatch(resetPassword(data)).then((response) => {
       if (response.payload?.response?.status === 400) {
         setErr(response.payload.response.data.message);
+        setIsLoading(false);
         reset();
       }
       if (response.payload?.status === 201) {
-        // navigate(ROUTES.LOGIN);
-        navigate('/login', { replace: true });
-        console.log('пароль успешно сменили')
+        navigate(ROUTES.LOGIN);
       }
     });
   };
@@ -74,7 +75,7 @@ const ResetPassword = () => {
                     },
                   })}
                 />
-                {!visiblePassword ? (
+                {visiblePassword ? (
                   <button className={styles.btnEye} onClick={(e) => handleClickVisiblePassword(e)}>
                     <IoEye color={'black'} size={22} />
                   </button>
@@ -105,7 +106,7 @@ const ResetPassword = () => {
                       value === formValues.password || 'Пароли не совпадают',
                   })}
                 />
-                {!visibleRepeatPassword ? (
+                {visibleRepeatPassword ? (
                   <button
                     className={styles.btnEye}
                     onClick={(e) => handleClickVisibleRepeatPassword(e)}
@@ -131,7 +132,7 @@ const ResetPassword = () => {
             </label>
           </div>
 
-          <button className={styles.button} disabled={!isValid}>
+          <button className={styles.button} disabled={!isValid || isLoading}>
             Сохранить
           </button>
         </form>

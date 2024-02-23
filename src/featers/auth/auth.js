@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { authAxios, instance } from '../index';
 import { jwtDecode } from 'jwt-decode';
 
-
 export const createUser = createAsyncThunk('users/createUser', async (payload, thunkAPI) => {
   try {
     const response = await authAxios.post(`/auth/registration`, payload);
@@ -30,6 +29,11 @@ export const changeUser = createAsyncThunk('auth/changeUser', async (payload, th
     return thunkAPI.rejectWithValue(error);
   }
 });
+
+// export const changeUser = createAsyncThunk('auth/changeUser', async (payload, thunkAPI) => {
+//   const response = await instance.patch(`/auth/change`, payload);
+//   return response;
+// });
 
 export const resetPassword = createAsyncThunk('auth/resetPassword', async (payload, thunkAPI) => {
   try {
@@ -61,14 +65,14 @@ const getDefaultUser = () => {
   const token = localStorage.getItem('token');
 
   if (!token) {
-    return {}
-      }
+    return {};
+  }
   const user = jwtDecode(token);
-    if (new Date() > new Date(user.exp * 1000)) {
-      return {}
-    }
-    return user
-}
+  if (new Date() > new Date(user.exp * 1000)) {
+    return {};
+  }
+  return user;
+};
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -76,6 +80,7 @@ export const authSlice = createSlice({
     user: getDefaultUser(),
     isLoading: null,
     isAuth: !!localStorage.getItem('token'),
+    role: null,
     isModalAccount: false,
   },
   reducers: {
@@ -88,10 +93,12 @@ export const authSlice = createSlice({
     addAuth: (state, { payload }) => {
       state.isAuth = payload;
     },
+    getRole: (state, { payload }) => {
+      state.role = payload;
+    },
     toggleModal: (state, { payload }) => {
       state.isModalAccount = payload;
     },
-   
   },
 
   extraReducers: (builder) => {
@@ -106,6 +113,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { addUser, addIsloading, addAuth, toggleModal, addIsNewUser } = authSlice.actions;
+export const { addUser, addIsloading, addAuth, toggleModal, addIsNewUser, getRole } =
+  authSlice.actions;
 
 export default authSlice.reducer;
