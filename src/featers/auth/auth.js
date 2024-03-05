@@ -30,11 +30,6 @@ export const changeUser = createAsyncThunk('auth/changeUser', async (payload, th
   }
 });
 
-// export const changeUser = createAsyncThunk('auth/changeUser', async (payload, thunkAPI) => {
-//   const response = await instance.patch(`/auth/change`, payload);
-//   return response;
-// });
-
 export const resetPassword = createAsyncThunk('auth/resetPassword', async (payload, thunkAPI) => {
   try {
     const response = await authAxios.post(
@@ -69,6 +64,7 @@ const getDefaultUser = () => {
   }
   const user = jwtDecode(token);
   if (new Date() > new Date(user.exp * 1000)) {
+    localStorage.removeItem('token');
     return {};
   }
   return user;

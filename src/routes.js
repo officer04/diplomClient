@@ -21,6 +21,8 @@ import CreateCours from './components/Admin/CreateCours/CreateCours';
 import CoursModules from './components/Admin/CoursModules/CoursModules';
 import CreateModule from './components/Admin/CreateModule/CreateModule';
 import ChangeModule from './components/Admin/ChangeModule/ChangeModule';
+import ModuleLessons from './components/Admin/ModuleLessons/ModuleLessons';
+import CreateLesson from './components/Admin/CreateLesson/CreateLesson';
 
 export const authRoutes = [
   {
@@ -32,15 +34,15 @@ export const authRoutes = [
     Component: <ListMyCours />,
   },
   {
-    path: ROUTES.SINGLE_MY_COURS + '/:id',
+    path: ROUTES.SINGLE_MY_COURS + '/:coursId',
     Component: <SingleMyCours />,
   },
   {
-    path: ROUTES.SINGLE_MY_COURS_TASK + '/:id',
+    path: ROUTES.SINGLE_MY_COURS_TASK + '/:moduleId',
     Component: <SingleTasksMyCours />,
   },
   {
-    path: ROUTES.SINGLE_MY_COURS_TASKS + '/:id',
+    path: ROUTES.SINGLE_MY_COURS_TASKS + '/:lessonId',
     Component: <TaskMyCours />,
   },
   {
@@ -67,26 +69,33 @@ export const adminRoutes = [
     Component: <Courses />,
   },
   {
-    path: ROUTES.MODULES_ADMIN + "/:id",
+    path: ROUTES.MODULES_ADMIN + '/:coursId',
     Component: <CoursModules />,
+  },
+  {
+    path: ROUTES.LESSONS_MODULE_ADMIN + '/:moduleId',
+    Component: <ModuleLessons />,
   },
   {
     path: ROUTES.CREATE_COURS,
     Component: <CreateCours />,
   },
   {
-    path: ROUTES.CREATE_MODULE + "/:id",
+    path: ROUTES.CREATE_MODULE + '/:coursId',
     Component: <CreateModule />,
   },
   {
-    path: ROUTES.CHANGE_COURS + '/:id',
+    path: ROUTES.CREATE_LESSON + '/:moduleId',
+    Component: <CreateLesson />,
+  },
+  {
+    path: ROUTES.CHANGE_COURS + '/:courdId',
     Component: <ChangeCours />,
   },
   {
-    path: ROUTES.CHANGE_MODULE + '/:id',
+    path: ROUTES.CHANGE_MODULE + '/:moduleId',
     Component: <ChangeModule />,
   },
-
 ];
 
 export const publicRoutes = [

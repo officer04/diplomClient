@@ -1,16 +1,11 @@
-import { Link, NavLink, useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import styles from './CoursModules.module.scss';
 import { ROUTES } from '../../../utils/conts';
-import { FaPlus } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-// import CardLearnMyCours from './../CardLearnMyCours/CardLearnMyCours';
-import CardLearnMyCours from './../../PersonalArea/CardLearnMyCours/CardLearnMyCours';
 import { useEffect } from 'react';
 import {
   deleteModule,
   getCoursModule,
-  getCoursModuleAll,
-  getCoursOne,
 } from '../../../featers/cours/cours';
 import CardCoursCreate from '../CardCoursCreate/CardCoursCreate';
 import CardModule from '../CardModules/CardModule';
@@ -18,9 +13,9 @@ import CardModule from '../CardModules/CardModule';
 const CoursModules = () => {
   const dispatch = useDispatch();
   const { isLoading, modules, cours } = useSelector(({ cours }) => cours);
-  const { id } = useParams();
+  const { coursId } = useParams();
   useEffect(() => {
-    dispatch(getCoursModule(id));
+    dispatch(getCoursModule(coursId));
   }, []);
 
   const handleClickDeleteCourse = (e, moduleId) => {
@@ -28,7 +23,7 @@ const CoursModules = () => {
     dispatch(deleteModule(moduleId)).then((response) => {
       console.log(response);
       if (response.payload?.status === 204) {
-        dispatch(getCoursModule(id));
+        dispatch(getCoursModule(coursId));
       }
     });
   };
@@ -39,13 +34,13 @@ const CoursModules = () => {
 
       <ul className={styles.nav}>
         <NavLink
-          to={`${ROUTES.CHANGE_COURS}/${id}`}
+          to={`${ROUTES.CHANGE_COURS}/${coursId}`}
           className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}
         >
           Параметры курса
         </NavLink>
         <NavLink
-          to={`${ROUTES.MODULES_ADMIN}`}
+          to={`${ROUTES.MODULES_ADMIN}/${coursId}`}
           className={({ isActive }) => (isActive ? `${styles.link} ${styles.active}` : styles.link)}
         >
           Модули курса
@@ -55,7 +50,11 @@ const CoursModules = () => {
       <div className={styles.wrapper}>
         {isLoading ? (
           <>
-            <CardCoursCreate id={id} className={styles.card} to={`${ROUTES.CREATE_MODULE}/${id}`} />
+            <CardCoursCreate
+              id={coursId}
+              className={styles.card}
+              to={`${ROUTES.CREATE_MODULE}/${coursId}`}
+            />
             {modules?.map((cours) => (
               <CardModule
                 key={cours._id}

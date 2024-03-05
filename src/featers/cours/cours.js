@@ -23,7 +23,7 @@ export const deleteCours = createAsyncThunk('cours/deleteCours', async (coursId,
 
 export const changeCours = createAsyncThunk('cours/changeCours', async (payload, thunkAPI) => {
   try {
-    const response = await instance.patch(`/cours/${payload.id}`, payload.data);
+    const response = await instance.patch(`/cours/${payload.courdId}`, payload.data);
     console.log(response.data);
     return response.data;
   } catch (error) {
@@ -31,10 +31,6 @@ export const changeCours = createAsyncThunk('cours/changeCours', async (payload,
   }
 });
 
-// export const changeCours = createAsyncThunk('cours/changeCours', async (payload, thunkAPI) => {
-//   const response = await instance.patch(`/cours/${payload.id}`, payload.data);
-//   return response.data;
-// });
 
 export const createModule = createAsyncThunk('cours/createModule', async (payload, thunkAPI) => {
   try {
@@ -86,9 +82,9 @@ export const getCourses = createAsyncThunk('cours/getCourses', async (_, thunkAP
   }
 });
 
-export const getCours = createAsyncThunk('cours/getCours', async (_, thunkAPI) => {
+export const getCoursUser = createAsyncThunk('cours/getCoursUser', async (_, thunkAPI) => {
   try {
-    const response = await instance.get(`/cours`);
+    const response = await instance.get(`/cours/student`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -118,9 +114,9 @@ export const getCoursOne = createAsyncThunk('cours/getCoursOne', async (payload,
 
 export const getCoursModule = createAsyncThunk(
   'cours/getCoursModule',
-  async (payload, thunkAPI) => {
+  async (coursId, thunkAPI) => {
     try {
-      const response = await instance.get(`/module/${payload}`);
+      const response = await instance.get(`/module/${coursId}`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -145,9 +141,9 @@ export const getCoursModuleAll = createAsyncThunk(
 
 export const getCoursModuleLesson = createAsyncThunk(
   'cours/getCoursModuleLesson',
-  async (payload, thunkAPI) => {
+  async (moduleId, thunkAPI) => {
     try {
-      const response = await instance.get(`/lesson/${payload}`);
+      const response = await instance.get(`/lesson/${moduleId}`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -156,9 +152,9 @@ export const getCoursModuleLesson = createAsyncThunk(
   },
 );
 
-export const getLessonOne = createAsyncThunk('cours/getLessonOne', async (payload, thunkAPI) => {
+export const getLessonOne = createAsyncThunk('cours/getLessonOne', async (lessonId, thunkAPI) => {
   try {
-    const response = await instance.get(`/lesson/details/${payload}`);
+    const response = await instance.get(`/lesson/details/${lessonId}`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -184,11 +180,11 @@ export const coursSlice = createSlice({
       state.cours = payload;
       // state.isLoading = false;
     });
-    builder.addCase(getCours.pending, (state) => {
+    builder.addCase(getCoursUser.pending, (state) => {
       state.courses = [];
       state.isLoading = false;
     });
-    builder.addCase(getCours.fulfilled, (state, { payload }) => {
+    builder.addCase(getCoursUser.fulfilled, (state, { payload }) => {
       state.courses = payload;
       state.isLoading = true;
     });

@@ -1,10 +1,9 @@
 import { useDispatch } from 'react-redux';
-import styles from './CreateModule.module.scss';
+import styles from './CreateLesson.module.scss';
 import { useForm } from 'react-hook-form';
 import exclamation from '../../../images/exclamation.svg';
 import { createCours, createModule, getCourses } from '../../../featers/cours/cours';
 import Button from '../../UI/button/Button';
-import ButtonLink from '../../UI/button/ButtonLink';
 import { ROUTES } from '../../../utils/conts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
@@ -51,20 +50,20 @@ const CreateModule = () => {
   return (
     <div className={styles.createCours}>
       <div className={styles.wrapper}>
-        <h1 className={styles.title}>Новый модуль курса</h1>
+        <h1 className={styles.title}>Новый урок модуля</h1>
         {err && <p>{err}</p>}
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.nameCourse}>
             <label>
-              <h3>Наименование модуля</h3>
+              <h3>Наименование урока</h3>
               <input
                 type="text"
-                placeholder="Введите название модуля"
+                placeholder="Введите название урока"
                 {...register('title', {
                   required: 'Поле обязательно к заполнению',
                   minLength: {
                     value: 3,
-                    message: 'Минимум 3 символов в навазнии',
+                    message: 'Минимум 3 символов в названии',
                   },
                 })}
               />

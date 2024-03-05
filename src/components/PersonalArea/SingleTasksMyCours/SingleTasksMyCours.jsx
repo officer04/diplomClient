@@ -12,10 +12,10 @@ import { getCoursModuleLesson } from '../../../featers/cours/cours';
 
 const SingleTasksMyCours = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { moduleId } = useParams();
   const { lessonsInfo, isLoading } = useSelector(({ cours }) => cours);
   useEffect(() => {
-    dispatch(getCoursModuleLesson(id));
+    dispatch(getCoursModuleLesson(moduleId));
   }, []);
   return (
     <div className={styles.singleTasksMyCours}>

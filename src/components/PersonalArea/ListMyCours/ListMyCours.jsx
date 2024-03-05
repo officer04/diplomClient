@@ -6,7 +6,7 @@ import ModalAccount from '../../ModalAccount/ModalAccount';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getCours } from '../../../featers/cours/cours';
+import { getCoursUser } from '../../../featers/cours/cours';
 
 const ListMyCours = () => {
   const dispatch = useDispatch();
@@ -14,15 +14,19 @@ const ListMyCours = () => {
   const { courses, isLoading } = useSelector(({ cours }) => cours);
 
   useEffect(() => {
-    dispatch(getCours());
+    dispatch(getCoursUser());
   }, []);
 
   return (
     <div className={styles.ListMyCours}>
       {isModalAccount && <ModalAccount />}
       <h1 className={styles.title}>Список курсов</h1>
-      {/* <h3>Список моих курсов</h3>
-      <h3>Магазин курсов</h3> */}
+      <nav className={styles.nav}>
+        <ul>
+          <li>Список моих курсов</li>
+          <li>Магазин курсов</li>
+        </ul>
+      </nav>
       <div className={styles.wrapper}>
         {!courses.length && isLoading && <h2>К сожалению у вас пока не купленно никаких курсов</h2>}
         {isLoading

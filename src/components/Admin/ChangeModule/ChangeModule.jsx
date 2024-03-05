@@ -28,7 +28,7 @@ const getValue = (value) => {
 const ChangeModule = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { moduleId } = useParams();
   const { cours, module } = useSelector(({ cours }) => cours);
 
   const {
@@ -46,28 +46,20 @@ const ChangeModule = () => {
   });
 
   useEffect(() => {
-    dispatch(getModuleOne(id)).then((response) => {
+    dispatch(getModuleOne(moduleId)).then((response) => {
       setValue('title', response?.payload.title);
     });
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(getCoursOne(id)).then((response) => {
-  //     setValue('title', response?.payload.title);
-  //     setValue('description', response?.payload.description);
-  //     setValue('imgUrl', response?.payload.imgUrl);
-  //   });
-  // }, []);
-
   const onSubmit = (data) => {
     const request = {
-      moduleId: id,
+      moduleId: moduleId,
       data: {
         title: data.title,
         // status: data.status.value,
       },
     };
-    dispatch(changeModule(request)).then((response) => {
+    dispatch(changeModule(request)).then(() => {
       navigate(-1);
     });
   };
@@ -94,7 +86,7 @@ const ChangeModule = () => {
             Модули курса
           </NavLink>
           <NavLink
-            to={`${ROUTES.CHANGE_MODULE}/${id}`}
+            to={`${ROUTES.CHANGE_MODULE}/${moduleId}`}
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
@@ -102,7 +94,7 @@ const ChangeModule = () => {
             Параметры модуля
           </NavLink>
           <NavLink
-            // to={`${ROUTES.CHANGE_MODULE}/${id}`}
+            to={`${ROUTES.LESSONS_MODULE_ADMIN}/${moduleId}`}
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }

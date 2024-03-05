@@ -47,7 +47,7 @@ const UserFormSignUp = () => {
         localStorage.setItem('token', token);
         dispatch(addUser(user));
         // navigate(ROUTES.ACCOUNT);
-        navigate('/account', { replace: true });
+        navigate(ROUTES.ACCOUNT);
       }
     });
   };

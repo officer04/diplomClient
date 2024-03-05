@@ -3,7 +3,6 @@ import CardMyCours from './../CardMyCours/CardMyCours';
 
 import styles from './SingleMyCours.module.scss';
 import { Link, useParams } from 'react-router-dom';
-import { FaPlus } from 'react-icons/fa';
 import ContentLoader from 'react-content-loader';
 
 import leftCircle from './../../../images/arrow-left-circle.svg';
@@ -14,11 +13,11 @@ import { getCours, getCoursModule, getCoursOne } from '../../../featers/cours/co
 
 const SingleMyCours = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { coursId } = useParams();
   const { modules, cours, isLoading } = useSelector(({ cours }) => cours);
   useEffect(() => {
-    dispatch(getCoursModule(id));
-    dispatch(getCoursOne(id));
+    dispatch(getCoursModule(coursId));
+    dispatch(getCoursOne(coursId));
   }, []);
 
   return (

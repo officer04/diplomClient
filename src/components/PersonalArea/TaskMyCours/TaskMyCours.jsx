@@ -10,10 +10,10 @@ import { getLessonOne } from '../../../featers/cours/cours';
 
 const TaskMyCours = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { lessonId } = useParams();
   const { lesson, isLoading } = useSelector(({ cours }) => cours);
   useEffect(() => {
-    dispatch(getLessonOne(id));
+    dispatch(getLessonOne(lessonId));
   }, []);
 
   console.log(lesson);

@@ -22,11 +22,8 @@ const getValue = (value) => {
 
 const ChangeCours = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { id } = useParams();
+  const { courdId } = useParams();
   const { cours } = useSelector(({ cours }) => cours);
-
-  useEffect(() => {}, []);
 
   const {
     register,
@@ -45,7 +42,7 @@ const ChangeCours = () => {
   });
 
   useEffect(() => {
-    dispatch(getCoursOne(id)).then((response) => {
+    dispatch(getCoursOne(courdId)).then((response) => {
       setValue('title', response?.payload.title);
       setValue('description', response?.payload.description);
       setValue('imgUrl', response?.payload.imgUrl);
@@ -54,7 +51,7 @@ const ChangeCours = () => {
 
   const onSubmit = (data) => {
     const request = {
-      id: id,
+      courdId: courdId,
       data: {
         title: data.title,
         description: data.description,
@@ -71,7 +68,7 @@ const ChangeCours = () => {
         <h1 className={styles.title}>{cours.title}</h1>
         <ul className={styles.nav}>
           <NavLink
-            to={`${ROUTES.CHANGE_COURS}/${id}`}
+            to={`${ROUTES.CHANGE_COURS}/${courdId}`}
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
@@ -79,7 +76,7 @@ const ChangeCours = () => {
             Параметры курса
           </NavLink>
           <NavLink
-            to={`${ROUTES.MODULES_ADMIN}/${id}`}
+            to={`${ROUTES.MODULES_ADMIN}/${courdId}`}
             className={({ isActive }) =>
               isActive ? `${styles.link} ${styles.active}` : styles.link
             }
